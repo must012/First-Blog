@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+            <link rel="stylesheet" type="text/css" href="{% static 'homepage/detail_style.css' %}" />
+            <content>
+                <h1>{{ object.title }}</h1>
+                <p>{{ object.created_date|date:"Y년 M d일 h:i" }}</p>
+                <hr>
+                <article>
+                    <div>{{ object.text }}</div>
+                </article>
+            </content>
+{% endblock %}

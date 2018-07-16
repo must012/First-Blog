@@ -1,0 +1,33 @@
+content{
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 2%;
+}
+
+content>h1{
+    display: inline;
+}
+
+content>p{
+    display: inline;
+    font-size: 1rem;
+    padding-left: 2rem;
+}
+
+content>hr{
+    background-color: black;
+}
+
+content>article{
+    margin: 0;
+    text-indent: 1rem;
+}
+
+body{
+    height: 100%;
+}
+
+footer{
+    height: 7%;
+}
