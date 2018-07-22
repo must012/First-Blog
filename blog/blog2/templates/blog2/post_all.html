@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block aside %}
+<aside>
+    BlogList
+</aside>
+{% endblock %}
+
+{% block content %}
+<nav>
+    {% if posts %}
+    <ul id="content_list">
+        {% for post in posts %}
+        <li class="item_list" onclick="location.href = '{{ post.get_absolute_url }}'">
+            <p class="item_title" >{{ post.title }}</p>
+            <p class="item_time">{{ post.modify_date|date:"N d, Y" }}</p>
+            <p class="item_content">{{ post.description }}</p>
+
+            <!-- N d, Y 형식으로 filtering 하면 July 18, 2018 같은 식으로 출력
+             get_absolute_url 은 모델 클래스의 메소드로 정의되어 있어야하며
+             코드가 간략해지는 장점이 있음-->
+
+        </li>
+        {% endfor %}
+
+        {% if is_paginated %}
+        <ul id="page_list">
+            {% if page_obj.has_previous%}
+            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+            <li class="disabled">&laquo;</li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+            <li class="active"><p>{{ i }}</p></li>
+            {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+            <!--page_obj 는 장고의 Page 객체가 들어있는 context 변수
+            page_obj.number 는 현재 페이지 번호, page_obj.paginator.num_pages는 총 페이지 개수-->
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number}}">&raquo;</a></li>
+            {% else %}
+            <li class="disabled">&raquo;</li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </ul>
+
+        {% else %}
+    <p>No Have Posts's Objects!</p>
+    {% endif %}
+    </ul>
+
+
+</nav>
+{% endblock %}

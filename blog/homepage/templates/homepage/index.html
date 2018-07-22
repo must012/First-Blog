@@ -1,44 +1,63 @@
 {% extends 'base.html' %}
 
+{% block javascript %}
+<script>
+    $(".item_list").click(function () {
+        var num = parseInt(this.id);
+
+        $.ajax({});
+    });
+</script>
+{% endblock %}
+
+{% block aside%}
+<aside>
+    Post List
+</aside>
+{% endblock %}
+
 {% block content %}
 <nav>
     {% if object_list %}
-        <ul id="content_list">
-            {% for row in object_list %}
+    <ul id="content_list">
+        {% for row in object_list %}
 
-            <li id="{{ row.id }}" onclick="location.href = '{% url "homepage:detail" row.id %}'">
-                <p class="item_title">{{ row.title }}</p>
-                <p class="item_time">{{ row.created_date|date:"Y년 M d일 h:i" }}</p>
-                <p class="item_content">{{ row.text|truncatewords:50 }}</p>
-            </li>
+        <li class="item_list" id="{{ row.id }}" onclick="location.href = '{{ row.get_absolute_url }}'">
+        <!--<li class="item_list" id="{{ row.id }}">-->
+        <p class="item_title">{{ row.title }}</p>
+        <p class="item_time">{{ row.created_date|date:"Y년 M d일 h:i" }}</p>
+        <p class="item_content">{{ row.text|truncatewords:50 }}</p>
+        </li>
+        {% endfor %}
+
+        {% if is_paginated %}
+        <ul id="page_list">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+            <li class="disabled">&laquo;</li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+            <li class="active"><p>{{ i }}</p></li>
+            {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
             {% endfor %}
-
-            {% if is_paginated %}
-            <ul id="page_list">
-                {% if page_obj.has_previous %}
-                    <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-                {% else %}
-                    <li class="disabled">&laquo;</li>
-                {% endif %}
-                {% for i in paginator.page_range %}
-                    {% if page_obj.number == i %}
-                        <li class="active"><p>{{ i }}</p></li>
-                    {% else %}
-                        <li><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                    <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-                {% else %}
-                    <li class="disabled">&raquo;</li>
-                {% endif %}
-            </ul>
-        {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+            {% else %}
+            <li class="disabled">&raquo;</li>
+            {% endif %}
         </ul>
+        {% endif %}
+    </ul>
 
 
     {% else %}
-        <p> No Have Board's Objects! </p>
+    <p> No Have Board's Objects! </p>
     {% endif %}
 </nav>
+
+
 {% endblock %}

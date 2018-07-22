@@ -1,0 +1,19 @@
+<h2>{{ object.title }}</h2>
+
+<p class="other_posts">
+    {% if object.get_previous_in_order %}
+    <a href="{{ object.get_previous_post.get_absolute_url }}" title="View previous post">
+        &laquo;--{{ object.get_previous_post }}</a>
+    {% endif %}
+
+    {% if object.get_next_in_order %}
+    ||<a href="{{ object.get_next_post.get_absolute_url }}" title="View next post">{{ objct.get_next_post}}</a>
+    {% endif %}
+</p>
+
+<p class="date">{{ object.modify_date|date:"Y F j" }}</p>
+<!-- 2018, 7월 19 로 출력 -->
+<div class="body">
+    {{ object.content|linebreaks }}
+    <!-- linebreaks 를 통해서 /newline 을 인식할 수 있음 -->
+</div>
