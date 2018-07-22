@@ -1,14 +1,4 @@
 # First-Blog
-This is my first Django Framework application
+Django 를 이용한 첫 블로그 입니다.
 
-7/16
-pagination 의 .disabled, .active 의 pointer 옵션 변경
-
-7/19
-main div 삭제(불필요)
-section 과 aside 재정렬
-
-7/22
-header의 애니메이션 추가
-footer의 위치 조정
-detail view 에서의 aside 삭제
+JQuerry / Ajax / Django 를 활용하였습니다.
